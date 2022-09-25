@@ -3,7 +3,7 @@ import java.util.Scanner;
 class Stack {
 
     final static int MAX = 5;
-    static int top = -1;
+    int top = -1;
     int[] stack = new int[MAX];
 
     void push(int x) {
