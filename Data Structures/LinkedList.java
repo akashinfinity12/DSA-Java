@@ -101,11 +101,42 @@ class LinkedList {
 
   }
 
+  // insert element at any position
+  public static LinkedList insertByPosition(LinkedList list, int value, int index) {
+    Node newNode = new Node(value);
+    Node temp = list.head;
+    Node prev = null;
+    int counter = 0;
+
+    if (index == 0 && temp != null) {
+      newNode.next = temp;
+      list.head = newNode;
+      System.out.println("Element inserted at position " + index);
+      return list;
+    }
+
+    while (temp != null && counter != index) {
+      prev = temp;
+      temp = temp.next;
+      counter++;
+    }
+
+    if (temp != null) {
+      prev.next = newNode;
+      newNode.next = temp;
+      System.out.println("Element inserted at position " + index);
+    } else {
+      System.out.println("Index not present in the list");
+    }
+
+    return list;
+  }
+
   public static void main(String[] args) {
     Scanner sc = new Scanner(System.in);
     LinkedList l1 = new LinkedList();
 
-    int option, value;
+    int option, value, position;
 
     do {
       System.out.println(
@@ -119,6 +150,13 @@ class LinkedList {
           value = sc.nextInt();
           l1 = insertEnd(l1, value);
           break;
+        case 2:
+          System.out.print("Enter the element: ");
+          value = sc.nextInt();
+          System.out.print("Enter the position: ");
+          position = sc.nextInt();
+          l1 = insertByPosition(l1, value, position);
+          break;
         case 3:
           System.out.print("Enter the element to delete: ");
           value = sc.nextInt();
@@ -126,8 +164,8 @@ class LinkedList {
           break;
         case 4:
           System.out.print("Enter the position: ");
-          value = sc.nextInt();
-          l1 = deleteByPosition(l1, value);
+          position = sc.nextInt();
+          l1 = deleteByPosition(l1, position);
           break;
         case 5:
           printLinkedList(l1);
