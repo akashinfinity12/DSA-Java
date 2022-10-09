@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class BinaryTree {
 
     static class Node {
@@ -27,22 +29,67 @@ public class BinaryTree {
         }
     }
 
-    // traversing the tree (inorder)
-    public void traverseTree(Node node) {
+    // inorder traversing
+    public void inorderTraverse(Node node) {
         if (node != null) {
-            traverseTree(node.left);
+            inorderTraverse(node.left);
             System.out.print(node.data + " ");
-            traverseTree(node.right);
+            inorderTraverse(node.right);
+        }
+    }
+
+    // preorder traversing
+    public void preorderTraverse(Node node) {
+        if (node != null) {
+            System.out.print(node.data + " ");
+            preorderTraverse(node.left);
+            preorderTraverse(node.right);
+        }
+    }
+
+    // postorder traversing
+    public void postorderTraverse(Node node) {
+        if (node != null) {
+            postorderTraverse(node.left);
+            postorderTraverse(node.right);
+            System.out.print(node.data + " ");
         }
     }
 
     public static void main(String[] args) {
         BinaryTree tree = new BinaryTree();
-        Node root = new Node(5);
-        tree.addNode(root, 3);
-        tree.addNode(root, 7);
-        tree.addNode(root, 4);
-        tree.addNode(root, 5);
-        tree.traverseTree(root);
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the root node: ");
+        int rootValue = sc.nextInt();
+        Node root = new Node(rootValue);
+        int option, value;
+        do {
+            System.out.println(
+                    "\nMENU\n1. Add node\n2. Inorder Traversal\n3. Preorder Traversal\n4. Postorder Traversal\n5. Exit");
+            System.out.print("Enter any one option: ");
+            option = sc.nextInt();
+            switch (option) {
+                case 1:
+                    System.out.print("Enter node value: ");
+                    value = sc.nextInt();
+                    tree.addNode(root, value);
+                    break;
+                case 2:
+                    tree.inorderTraverse(root);
+                    System.out.println();
+                    break;
+                case 3:
+                    tree.preorderTraverse(root);
+                    System.out.println();
+                    break;
+                case 4:
+                    tree.postorderTraverse(root);
+                    System.out.println();
+                    break;
+                case 5:
+                    break;
+            }
+        } while (option != 5);
+        sc.close();
     }
 }
